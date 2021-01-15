@@ -1,0 +1,15 @@
+{
+  "name": "webglpg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "three": "^0.117.1"
+  }
+}
