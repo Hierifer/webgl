@@ -12,14 +12,13 @@ export class Line <
 
 	constructor(
 		geometry?: TGeometry,
-		material?: TMaterial,
-		mode?: number
+		material?: TMaterial
 	);
 
 	geometry: TGeometry;
 	material: TMaterial;
 
-	type: 'Line' | 'LineLoop' | 'LineSegments';
+	type: 'Line' | 'LineLoop' | 'LineSegments' | string;
 	readonly isLine: true;
 
 	morphTargetInfluences?: number[];

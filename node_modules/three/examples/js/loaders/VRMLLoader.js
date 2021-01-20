@@ -1,15 +1,8 @@
-console.warn( "THREE.VRMLLoader: As part of the transition to ES6 Modules, the files in 'examples/js' were deprecated in May 2020 (r117) and will be deleted in December 2020 (r124). You can find more information about developing using ES6 Modules in https://threejs.org/docs/index.html#manual/en/introduction/Import-via-modules." );
-/**
- * @author Mugen87 / https://github.com/Mugen87
- */
-
-/* global chevrotain */
-
 THREE.VRMLLoader = ( function () {
 
 	// dependency check
 
-	if ( typeof chevrotain === 'undefined' ) {
+	if ( typeof chevrotain === 'undefined' ) { // eslint-disable-line no-undef
 
 		throw Error( 'THREE.VRMLLoader: External library chevrotain.min.js required.' );
 
@@ -33,8 +26,10 @@ THREE.VRMLLoader = ( function () {
 
 			var path = ( scope.path === '' ) ? THREE.LoaderUtils.extractUrlBase( url ) : scope.path;
 
-			var loader = new THREE.FileLoader( this.manager );
+			var loader = new THREE.FileLoader( scope.manager );
 			loader.setPath( scope.path );
+			loader.setRequestHeader( scope.requestHeader );
+			loader.setWithCredentials( scope.withCredentials );
 			loader.load( url, function ( text ) {
 
 				try {
@@ -102,7 +97,7 @@ THREE.VRMLLoader = ( function () {
 
 			function createTokens() {
 
-				var createToken = chevrotain.createToken;
+				var createToken = chevrotain.createToken; // eslint-disable-line no-undef
 
 				// from http://gun.teipir.gr/VRML-amgem/spec/part1/concepts.html#SyntaxBasics
 
@@ -164,7 +159,7 @@ THREE.VRMLLoader = ( function () {
 
 				//
 
-				var StringLiteral = createToken( { name: "StringLiteral", pattern: /"(:?[^\\"\n\r]+|\\(:?[bfnrtv"\\/]|u[0-9a-fA-F]{4}))*"/ } );
+				var StringLiteral = createToken( { name: 'StringLiteral', pattern: /"(:?[^\\"\n\r]+|\\(:?[bfnrtv"\\/]|u[0-9a-fA-F]{4}))*"/ } );
 				var HexLiteral = createToken( { name: 'HexLiteral', pattern: /0[xX][0-9a-fA-F]+/ } );
 				var NumberLiteral = createToken( { name: 'NumberLiteral', pattern: /[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/ } );
 				var TrueLiteral = createToken( { name: 'TrueLiteral', pattern: /TRUE/ } );
@@ -177,7 +172,7 @@ THREE.VRMLLoader = ( function () {
 				var Comment = createToken( {
 					name: 'Comment',
 					pattern: /#.*/,
-					group: chevrotain.Lexer.SKIPPED
+					group: chevrotain.Lexer.SKIPPED // eslint-disable-line no-undef
 				} );
 
 				// commas, blanks, tabs, newlines and carriage returns are whitespace characters wherever they appear outside of string fields
@@ -185,7 +180,7 @@ THREE.VRMLLoader = ( function () {
 				var WhiteSpace = createToken( {
 					name: 'WhiteSpace',
 					pattern: /[ ,\s]/,
-					group: chevrotain.Lexer.SKIPPED
+					group: chevrotain.Lexer.SKIPPED // eslint-disable-line no-undef
 				} );
 
 				var tokens = [
@@ -1233,26 +1228,26 @@ THREE.VRMLLoader = ( function () {
 
 					case TEXTURE_TYPE.INTENSITY_ALPHA:
 						// Intensity+Alpha texture: A two-component image specifies the intensity in the first (high) byte and the alpha opacity in the second (low) byte.
-						var value = parseInt( "0x" + hex.substring( 2, 4 ) );
+						var value = parseInt( '0x' + hex.substring( 2, 4 ) );
 						color.r = value;
 						color.g = value;
 						color.b = value;
-						color.a = parseInt( "0x" + hex.substring( 4, 6 ) );
+						color.a = parseInt( '0x' + hex.substring( 4, 6 ) );
 						break;
 
 					case TEXTURE_TYPE.RGB:
 						// RGB texture: Pixels in a three-component image specify the red component in the first (high) byte, followed by the green and blue components
-						color.r = parseInt( "0x" + hex.substring( 2, 4 ) );
-						color.g = parseInt( "0x" + hex.substring( 4, 6 ) );
-						color.b = parseInt( "0x" + hex.substring( 6, 8 ) );
+						color.r = parseInt( '0x' + hex.substring( 2, 4 ) );
+						color.g = parseInt( '0x' + hex.substring( 4, 6 ) );
+						color.b = parseInt( '0x' + hex.substring( 6, 8 ) );
 						break;
 
 					case TEXTURE_TYPE.RGBA:
 						// RGBA texture: Four-component images specify the alpha opacity byte after red/green/blue
-						color.r = parseInt( "0x" + hex.substring( 2, 4 ) );
-						color.g = parseInt( "0x" + hex.substring( 4, 6 ) );
-						color.b = parseInt( "0x" + hex.substring( 6, 8 ) );
-						color.a = parseInt( "0x" + hex.substring( 8, 10 ) );
+						color.r = parseInt( '0x' + hex.substring( 2, 4 ) );
+						color.g = parseInt( '0x' + hex.substring( 4, 6 ) );
+						color.b = parseInt( '0x' + hex.substring( 6, 8 ) );
+						color.a = parseInt( '0x' + hex.substring( 8, 10 ) );
 						break;
 
 					default:
@@ -3180,7 +3175,7 @@ THREE.VRMLLoader = ( function () {
 
 	function VRMLLexer( tokens ) {
 
-		this.lexer = new chevrotain.Lexer( tokens );
+		this.lexer = new chevrotain.Lexer( tokens ); // eslint-disable-line no-undef
 
 	}
 
@@ -3208,7 +3203,7 @@ THREE.VRMLLoader = ( function () {
 
 	function VRMLParser( tokenVocabulary ) {
 
-		chevrotain.Parser.call( this, tokenVocabulary );
+		chevrotain.Parser.call( this, tokenVocabulary ); // eslint-disable-line no-undef
 
 		var $ = this;
 
@@ -3435,7 +3430,7 @@ THREE.VRMLLoader = ( function () {
 
 	}
 
-	VRMLParser.prototype = Object.create( chevrotain.Parser.prototype );
+	VRMLParser.prototype = Object.create( chevrotain.Parser.prototype ); // eslint-disable-line no-undef
 	VRMLParser.prototype.constructor = VRMLParser;
 
 	function Face( a, b, c ) {
