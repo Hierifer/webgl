@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data(){
     return {
@@ -12,6 +14,9 @@ export default {
       total: [],
       collection: {},
     }
+  },
+  computed:{
+    ...mapState('logger', ['loggerCache'])
   },
   methods:{
     

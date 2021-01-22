@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import ant from "./utils/ant";
+import { createApp } from "vue"
+import App from "./App.vue"
+import Ant from "./utils/ant"
+import store from "./store/store.js"
 
-createApp(App).use(ant).mount('#app')
+
+const app = createApp(App)
+
+app.use(Ant)
+app.use(store)
+
+app.mount('#app')
